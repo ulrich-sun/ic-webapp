@@ -22,11 +22,11 @@ Liens utiles :
 - Site officiel :[ https://www.pgadmin.org/ ](https://www.pgadmin.org/) 
 - Docker Hub officiel:[ https://hub.docker.com/r/dpage/pgadmin4/ ](https://hub.docker.com/r/dpage/pgadmin4/) 
 
-Le site web vitrine a été conçu par l’équipe de développeurs de l’entreprise et les fichiers y relatifs se trouvent dans le repo suscité : [ https://github.com/sadofrazer/ic-webapp.git ](https://github.com/sadofrazer/ic-webapp.git) . Il est de votre responsabilité de conteneuriser cette application tout en permettant la saisie des différentes URL des applications (Odoo et pgadmin) par le biais des variables d’environnement. 
+Le site web vitrine a été conçu par l’équipe de développeurs de l’entreprise et les fichiers y relatifs se trouvent dans le repo suscité : [ https://github.com/ulrich-sun/ic-webapp.git ](https://github.com/ulrich-sun/ic-webapp.git) . Il est de votre responsabilité de conteneuriser cette application tout en permettant la saisie des différentes URL des applications (Odoo et pgadmin) par le biais des variables d’environnement. 
 
 Ci-dessous un aperçu du site vitrine attendu. 
 
-![](sources/app/images/site_vitrine.jpeg)
+![](images/site_vitrine.jpeg)
 
 **NB :** L’image** créée devra permettre de lancer un container permettant d’héberger ce site web et ayant les liens adéquats permettant d’accéder à nos applications internes 
 
@@ -54,14 +54,14 @@ Une fois le test terminé, supprimez ce container test et poussez votre image su
 L'objectif de ICGROUP est en effet de mettre sur pied un pipeline CI/CD permettant l'intégration et le déploiement en continu de cette solution sur leurs différentes machines en environnement de production (03 serveurs hébergés soit en On Premises soit dans le cloud AWS)
 
 ### **a. Pipeline Stages** 
-![](sources/app/images/pipeline.jpeg)
+![](images/pipeline.jpeg)
 
 ### **b. Infrastructure** 
 
 Pour ce projet, on aura besoin de 03 serveurs hébergées soit dans le cloud ou en On Premises (VirtualBox, VMWare…) pour ceux qui n’ont pas de comptes cloud (AWS, AZURE ou autres).
-Les serveurs nécessaires sont les suivants : docker_jenkins: [ https://github.com/sadofrazer/jenkins-frazer.git ](https://github.com/sadofrazer/jenkins-frazer.git)
+Les serveurs nécessaires sont les suivants :
 
-        1) **Serveur 1** : Jenkins (AWS, t2.medium, docker_jenkins: https://github.com/sadofrazer/jenkins-frazer.git)
+        1) **Serveur 1** : Jenkins (AWS, t2.medium, docker_jenkins: https://github.com/ulrich-sun/ic-webapp/tree/main/jenkins)
         2) **Serveur 2** : Applications web site vitrine + pgadmin4 (AWS, t2.micro)
         3) **Serveur 3** : Application Odoo (AWS, t2.micro)
 
@@ -86,11 +86,11 @@ Les étapes sont les suivantes :
 Afin de davantage automatiser notre solution, vous devez créer à la racine de votre repo, un fichier appelé releases.txt dans lequel vous enterrez les données sur votre application ( ODOO_URL, PGADMIN_URL et Version)
 Ce fichier devra contenir 03 lignes et 02 colonnes ( séparateur de colonne étant l’espace)
 Exemple 
-![](sources/app/images/releases.jpeg)
+![](images/releases.jpeg)
 
 Par la suite, vous devez modifier votre Dockerfile afin qu’il puisse lors du build récupérer les valeurs des URL du fichier releases.txt et les fournir automatiquement aux variables d’environnement crées dans le Dockerfile.
 Cela devra se faire grâce aux commandes awk et export. Ci-dessous un exemple.
-![](sources/app/images/export_var.jpeg)
+![](images/export_var.jpeg)
 Après avoir crée le Dockerfile qui va bien, Vous devrez créer le JenkinsFile permettant de Builder l’application, la tester (à vous de trouver les différents tests à réaliser sur chacune des applications) et la déployer en environnement de production.
 **NB** : vous devrez utiliser les mêmes mécanismes afin de récupérer la valeur de la variable version dans le fichier releases.txt qui devra être utilisé comme tag sur votre image.
 
@@ -109,7 +109,7 @@ Lancez l’exécution de votre pipeline manuellement pour une première fois, en
 
 Les applications ou services seront déployées dans un cluster Minikube, donc à un seul nœud et devront respecter l’architecture suivante. 
 
-![](sources/app/images/synoptique_Kubernetes.jpeg)
+![](images/synoptique_Kubernetes.jpeg)
 
 En vous basant sur cette architecture logicielle, bien vouloir identifier en donnant le type et le rôle de chacune des ressources (A…H)  mentionnées dans cette architecture. 
 
@@ -135,7 +135,7 @@ Afin de réduire le nombre de taches manuelles, nous souhaiterons qu’au démar
 
 Ce fichier doit être situé au niveau du container dans le répertoire : /pgadmin4/servers.json 
 
-![](sources/app/images/server_def.jpeg)
+![](images/server_def.jpeg)
 
 
 ### **d. Déploiement des différentes applications** 
@@ -155,7 +155,7 @@ Lancez l’exécution de vos différents manifests afin de déployer les différ
 
 Ci-dessous un exemple de description des qualifications souhaitées pour un poste de Devops 
 
-![](sources/app/images/offre_emploi.jpeg)
+![](images/offre_emploi.jpeg)
 
 **NB** : Bien vouloir preter attention aux qualités encadrées en jaune ci-dessus, vous vous rendez compte en effet que maitriser les technologies seulement ne suffit pas, il faut en plus de ca avoir un esprit très créatif, de très bonnes capacités redactionnelles pour rediger vos différents rapports et également des qualités de pédagogue qui vous aideront à parfaire les explications de vos actions dans vos différents rapports afin de faciliter leur compréhension. 
 
